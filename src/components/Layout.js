@@ -5,6 +5,7 @@ import Dashboard from "./account/Dashboard";
 import LogIn from "./account/LogIn";
 import SignUp from "./account/SignUp";
 import { AuthProvider } from "./account/Auth";
+import Blog from "./data/Blog/Blog";
 
 function Layout() {
     return (
@@ -15,6 +16,7 @@ function Layout() {
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/post" component={Blog} />
         </Switch>
       </Router>
     </AuthProvider>
