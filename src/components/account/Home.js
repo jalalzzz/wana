@@ -13,7 +13,7 @@ const Home = () => {
         </p>
       ) : (
         <p>
-          <Link to="/login">Log In</Link> or <Link to="/signup">Sign Up</Link>  or <Link to="/post">post</Link> 
+          <Link to="/login">Log In</Link> or <Link to="/signup">Sign Up</Link>  or <Link to="/post">post</Link> or <Link to="/map">map</Link> 
         </p>
       )}
     </>

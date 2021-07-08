@@ -6,6 +6,7 @@ import LogIn from "./account/LogIn";
 import SignUp from "./account/SignUp";
 import { AuthProvider } from "./account/Auth";
 import Blog from "./data/Blog/Blog";
+import SimpleMap from "./maps/SimpleMap";
 
 function Layout() {
     return (
@@ -17,6 +18,7 @@ function Layout() {
           <Route exact path="/login" component={LogIn} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/post" component={Blog} />
+          <Route exact path="/map" component={SimpleMap} />
         </Switch>
       </Router>
     </AuthProvider>
