@@ -8,7 +8,6 @@ const initialState = {
 
 export default function(state = initialState, action) {
 
-    console.log(action)
 
     switch (action.type) {
 
@@ -19,14 +18,7 @@ export default function(state = initialState, action) {
                 loading: false
 
             }
-        case GET_DATA_BY_ID:
 
-            return {
-                ...state,
-                dataSelected: state.data.filter(post => post.id === action.postId)
-
-
-            }
         default:
             return state
     }

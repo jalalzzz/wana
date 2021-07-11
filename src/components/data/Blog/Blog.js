@@ -15,17 +15,29 @@ class Blog extends Component {
         posts: [],
         selectedPostId: null,
         error: false,
-        postsFilter:[]
+        postsFilter:[],
+        selectedPostData: ""
+
     }
 
     componentDidMount () {
     this.props.getData();
     const {data} = this.props.data;
+    console.log(data);
     this.setState({posts: data});
     }
 
     postSelectedHandler = (id) => {
         this.setState({selectedPostId: id});
+        const data=this.state.posts.filter((post)=>{
+           // console.log(id===post.id)
+            return id===post.id}
+            
+            );
+      
+        this.setState({selectedPostData: data});
+      
+        
     }
 
     render () {
@@ -33,7 +45,9 @@ class Blog extends Component {
 
        
 
+
         let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
+        let fullPost= this.state.selectedPostData!=""? <FullPost fullData={[...this.state.selectedPostData]} id={this.state.selectedPostId}     />:"";
         if (!this.state.error) {
             posts = this.state.posts.map(post => {
               //  console.log(post.id);
@@ -48,7 +62,7 @@ class Blog extends Component {
                        
                 <Post 
                       {...post}  
-                    key={"A"+post.id} 
+                    key={Math.random()} 
                     title={post.association_name} 
                     author={post.author}
                     clicked={() => this.postSelectedHandler(post.id)} />
@@ -66,7 +80,7 @@ class Blog extends Component {
                     {posts}
                 </section>
                 <section>
-                   <FullPost id={this.state.selectedPostId} />
+                {fullPost}
                 </section>
               
             </div>

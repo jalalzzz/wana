@@ -1,31 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { getDataById } from '../../../store/actions/dataAction';
+
 import './FullPost.css';
-import * as actionTypes from '../../../store/types';
-import {connect} from 'react-redux';
+
+
 class FullPost extends Component {
     state = {
         loadedPost: null
     }
 
     componentDidUpdate() {
-       
-        if (this.props.id!=null) {
-            if (this.state.loadedPost) {
-                console.log(this.state.loadedPost.id + "  " + this.props.id);
-            }
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
-               const data= this.props.getDataById(this.props.id);
-               console.log(data);
-                var obj = new Object();
-                obj = data;
-                obj["id"] = this.props.id;
-                console.log(this.props.id);
-                this.setState({ loadedPost: obj });
-
-            }
-        }
+      
     }
 
     deletePostHandler = () => {
@@ -45,15 +30,15 @@ class FullPost extends Component {
         if (this.props.id) {
             post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
         }
-        if (this.state.loadedPost) {
-            tObj = object.map((post) => {
-                console.log(this.state.loadedPost[post])
+        if ( this.props.fullData) {
+            tObj = this.props.fullData.map((post) => {
+             //   console.log(this.state.loadedPost[post])
 
-                return (<p><span> {post} :</span>{this.state.loadedPost[post]}</p>)
+                return (<p><span> {post} :</span>{ this.props.fullData[post]}</p>)
             })
             post = (
                 <div className="FullPost">
-                    <h1>{this.state.loadedPost.association_name}</h1>
+                    <h1>{ this.props.fullData['association_name']}</h1>
                     {tObj}
 
                 </div>
@@ -65,12 +50,5 @@ class FullPost extends Component {
 }
 
 
-const mapStateToProps = (state) => ({ data: state.data });
-const mapDispatchToProps = dispatch => {
-    return {
-        getDataById: (id) => dispatch({ type: actionTypes.GET_DATA, postId: id })
-    }
-}
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(FullPost);;
+export default FullPost;

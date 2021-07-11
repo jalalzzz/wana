@@ -37,6 +37,3 @@ export const getData = () => async dispatch => {
     }
 
 }
-
-export const getDataById = (id) =>  dispatch =>({type: GET_DATA_BY_ID, postId: id})
-

@@ -5,4 +5,5 @@ import dataReducer from './dataReducer'
 
 export default combineReducers({
     data: dataReducer
+
 })
