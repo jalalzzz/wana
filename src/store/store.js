@@ -10,6 +10,9 @@ const initalState = {
 
 const middleware = [thunk]
 
-const store = createStore(rootReducer, initalState, composeWithDevTools(applyMiddleware(...middleware)))
+const store = createStore(rootReducer, initalState, composeWithDevTools(applyMiddleware(...middleware)));
+store.subscribe(() => {
+    console.log('[Subscription]', store.getState());
+});
 
 export default store;

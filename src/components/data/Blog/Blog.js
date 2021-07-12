@@ -29,13 +29,13 @@ class Blog extends Component {
 
     postSelectedHandler = (id) => {
         this.setState({selectedPostId: id});
-        const data=this.state.posts.filter((post)=>{
-           // console.log(id===post.id)
+        const data=this.props.data.data.filter((post)=>{
+         
             return id===post.id}
             
             );
-      
-        this.setState({selectedPostData: data});
+            console.log(data);
+        this.setState({selectedPostData: data[0]});
       
         
     }
@@ -47,27 +47,19 @@ class Blog extends Component {
 
 
         let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
-        let fullPost= this.state.selectedPostData!=""? <FullPost fullData={[...this.state.selectedPostData]} id={this.state.selectedPostId}     />:"";
+        let fullPost= this.state.selectedPostData!=""? <FullPost fullData={this.state.selectedPostData} id={this.state.selectedPostId}     />:"";
         if (!this.state.error) {
-            posts = this.state.posts.map(post => {
+            posts = this.props.data.data.map(post => {
               //  console.log(post.id);
              
-                return (<div className="container"> <div className="row">
-                  <div className="d-none d-sm-block col-lg-4   page-sidebar">
-                    <aside>
-                        
-                         </aside>
-                    </div>
-                    <div className="col-lg-8 col-md-12 col-xs-12 page-content"></div>
-                       
+                return (
                 <Post 
                       {...post}  
-                    key={Math.random()} 
+                    key={post.id} 
                     title={post.association_name} 
                     author={post.author}
                     clicked={() => this.postSelectedHandler(post.id)} />
-                </div>
-            </div>
+        
                     
                 
              );
@@ -77,7 +69,22 @@ class Blog extends Component {
         return (
             <div>
                 <section className="Posts">
+
+                <div className="container"> <div className="row">
+                  <div className="d-none d-sm-block col-lg-4   page-sidebar">
+                    <aside>
+                        
+                         </aside>
+                    </div>
+                    <div className="col-lg-8 col-md-12 col-xs-12 page-content">
+
                     {posts}
+                    </div>
+
+                    </div>
+            </div>
+                       
+                  
                 </section>
                 <section>
                 {fullPost}
