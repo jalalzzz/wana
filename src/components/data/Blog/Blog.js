@@ -18,7 +18,10 @@ class Blog extends Component {
         selectedPostId: null,
         error: false,
         postsFilter: [],
-        selectedPostData: ""
+        selectedPostData: "",
+        serachArr: [],
+        selectLocation: "All",
+        selectSection: "All"
 
     }
 
@@ -27,6 +30,16 @@ class Blog extends Component {
         const { data } = this.props.data;
         console.log(data);
         this.setState({ posts: data });
+        let arr = [];
+        data.forEach((val, index, array) => {
+            console.log(val.governorate);
+            if (arr.indexOf(val.governorate) == -1) {
+                arr.push(val.governorate);
+            }
+        });
+        arr.sort();
+        this.setState( 
+            { serachArr: arr });
     }
 
     postSelectedHandler = (id) => {
@@ -44,30 +57,40 @@ class Blog extends Component {
     }
     filterHandler = () => {
         console.log("filterHandler");
+    }
 
-
+    search = (items) => {
+        return items.filter((row) => (row.governorate == this.state.selectLocation || this.state.selectLocation == "All"))
     }
     render() {
 
 
+        let loaction = <div className="select"> <select onChange={e => { this.setState({ selectLocation: e.target.value }) }}
+            className="custom-select" aria-label="Filter Locations" value={this.state.selectLocation}>
+            <option value="All">جميع المواقع </option>
+            {this.state.serachArr.map((item) => { return (<option value={item} key={Math.random() + item}>{item}</option>) })}
 
+
+        </select>
+            <span className="focus"></span>
+        </div>
 
 
         let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
         let fullPost = this.state.selectedPostData != "" ? <FullPost fullData={this.state.selectedPostData} id={this.state.selectedPostId} /> : "";
         if (!this.state.error) {
-            posts = this.props.data.data.map(post => {
+            posts = this.search(this.props.data.data).map(post => {
                 //  console.log(post.id);
 
                 return (
 
 
-                    <li   key={"hhhh"+post.id}>
+                    <li key={"hhhh" + post.id}>
                         <Link to={`/${post.association_name}`}>
 
                             <Post
                                 {...post}
-                           
+
                                 title={post.association_name}
                                 author={post.author}
                                 clicked={() => this.postSelectedHandler(post.id)} />
@@ -84,21 +107,24 @@ class Blog extends Component {
 
         return (
             <div>
+                <section>
+                {loaction}
+                </section>
                 <section className="Posts">
 
-                                        
-                      
 
-                            <ul className="card-grid">
+                
 
-
-                                {posts}
-                            </ul>
+                    <ul className="card-grid">
 
 
-                     
+                        {posts}
+                    </ul>
 
-                    
+
+
+
+
 
 
                 </section>

@@ -12,7 +12,7 @@ const AssociationDetail = (props) => {
           <div className="col-lg-8 col-md-12 col-xs-12">
 
 
-            <div className="details-box" style={{"margin-top":"0px"}}>
+            <div className="details-box" style={{"marginTop":"0px"}}>
               <div className="ads-details-info">
                 <h1>{props.association_name}</h1>
                 <div className="details-meta">

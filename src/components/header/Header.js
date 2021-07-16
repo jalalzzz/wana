@@ -1,4 +1,5 @@
 import Btn from './Btn';
+import { Link } from "react-router-dom";
 import {  HiOutlineMoon } from 'react-icons/hi';
 const icon = <HiOutlineMoon size={18} />;
 
@@ -22,7 +23,11 @@ const Header = () => {
                    الجمعيات
                 </h1>
                 <Btn text={icon} altText="Dark Mode" className="header-btn" onclick={onclick} />
+				
                 </div>
+				  <div className="wrapper flex f-center-y f-btw">
+				  <Link to="/login">Log In</Link>  <Link to="/signup">Sign Up</Link>   <Link to="/post">post</Link>  <Link to="/map">map</Link> 
+				   </div>
            
         </header>
     )
