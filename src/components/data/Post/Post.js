@@ -3,12 +3,28 @@ import React from 'react';
 import './Post.css';
 
 const post = (props) => (
-    <div className="Post col-xs-6 col-sm-6 col-md-6 col-lg-4 thelist" onClick={props.clicked}>
-        <h1>{props.title}</h1>
-        <div className="Info">
-            <div className="Author">{props.author}</div>
-        </div>
-    </div>
+
+
+<div className="card" key={props.id}  onClick={props.clicked}>
+                <div className="card-image">
+                    <img src={props.urlImage} alt={props.association_name} width="100" height="100"/>
+                </div>
+                <div className="card-content">
+                    <h3 className="card-name">
+                        {props.association_name}
+                    </h3>
+                    <ol className="card-list">
+                      
+                        <li>الموقع: <span>{props.governorate}</span></li>
+                       
+                    </ol>
+                </div>
+            </div>
+
+        
+    
+      
+   
 );
 
 export default post;
