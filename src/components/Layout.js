@@ -9,6 +9,7 @@ import Blog from "./data/Blog/Blog";
 import SimpleMap from "./maps/SimpleMap";
 import Header from "./header/Header";
 import BorderAssociation from "./BorderAssociation";
+import Footer from "./footer/Footer";
 
 function Layout() {
   return (
@@ -27,6 +28,7 @@ function Layout() {
             <Route path="/:name" exact component={(props) => <BorderAssociation {...props} key={window.location.pathname}/>} />
           </Switch>
         </div>
+        <Footer/>
       </Router>
 
 

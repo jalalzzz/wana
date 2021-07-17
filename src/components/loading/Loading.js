@@ -1,5 +1,5 @@
-import { ImEarth } from 'react-icons/im';
-const icon = <ImEarth size={68} color="blue" />;
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+const icon = <AiOutlineLoading3Quarters size={68} color="blue" />;
 
 
 const Loading = ({text}) => {

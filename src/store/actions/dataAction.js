@@ -1,5 +1,6 @@
-import { DATA_ERROR, GET_DATA ,GET_DATA_BY_ID} from '../types'
-import axios from 'axios'
+import { DATA_ERROR, GET_DATA, GET_DATA_BY_ID } from '../types';
+import axios from 'axios';
+
 
 
 export const getData = () => async dispatch => {
@@ -12,7 +13,7 @@ export const getData = () => async dispatch => {
                 let postsArray = [];
 
 
-                const updatedPosts = Object.keys(posts).map(function (key, index) {
+                const updatedPosts = Object.keys(posts).map(function(key, index) {
                     var obj = new Object();
                     obj = posts[key]
                     obj["id"] = key;
@@ -26,10 +27,10 @@ export const getData = () => async dispatch => {
                     type: GET_DATA,
                     payload: postsArray
                 })
+
             })
 
-    }
-    catch (e) {
+    } catch (e) {
         dispatch({
             type: DATA_ERROR,
             payload: console.log(e),
