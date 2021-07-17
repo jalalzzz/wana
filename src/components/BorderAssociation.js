@@ -40,10 +40,10 @@ class BorderAssociation extends Component {
     if (this.state.error) {
       return (
         <>
-          <div className="search-wrapper">
-            <Link to={'/'}>
+          <div className="search-wrapper" >
+           /* <Link to={'/'}>
               <Btn text={icon} altText="Back" className="btn" />
-            </Link>
+            </Link>*/
           </div>
           <Error text={this.props.match.params.name} msg={this.state.error.message} />
         </>
