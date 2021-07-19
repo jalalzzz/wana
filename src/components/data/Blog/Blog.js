@@ -18,37 +18,43 @@ class Blog extends Component {
         selectedPostData: "",
         serachArr: [],
         selectLocation: "All",
-        selectSection: "All",
         searchData: "",
-        searchTarget: ["association_name", "vision_goals"]
+        searchTarget: ["association_name", "vision_goals"],
+        classificationArr: [],
+        classification: "All"
     }
 
     componentDidMount() {
         this.props.getData();
-      
-            console.log("componentDidMount---")
-            const store = Store;
-            console.log(store.getState().data.data);
-            store.subscribe(() => {
 
-                const { data } = this.props.data;
-                console.log(data);
-               
-                let arr = [];
-                data.forEach((val, index, array) => {
-                   // console.log(val.governorate);
-                    if (arr.indexOf(val.governorate) == -1) {
-                        arr.push(val.governorate);
-                    }
-                });
-                arr.sort();
-                this.setState({ serachArr: arr });
+        console.log("componentDidMount---")
+        const store = Store;
+        console.log(store.getState().data.data);
+        store.subscribe(() => {
 
-                console.log('[Subscription-----]', store.getState());
-            })
-            this.setState({ posts:store.getState().data.data });
+            const { data } = this.props.data;
+            console.log(data);
+
+            let arr = [];
+            let arr2 = [];
+            data.forEach((val, index, array) => {
+                // console.log(val.governorate);
+                if (arr.indexOf(val.governorate) == -1) {
+                    arr.push(val.governorate);
+                }
+                if (arr2.indexOf(val.classification) == -1) {
+                    arr2.push(val.classification);
+                }
+            });
+            arr.sort();
+            arr2.sort();
+            this.setState({ serachArr: arr, classificationArr: arr2 });
+
+            console.log('[Subscription-----]', store.getState());
+        })
+        this.setState({ posts: store.getState().data.data });
     }
-  
+
 
     postSelectedHandler = (id) => {
         this.setState({ selectedPostId: id });
@@ -69,29 +75,35 @@ class Blog extends Component {
 
     search = (items) => {
         return items.filter((row) => {
-           
-            if (row.governorate == this.state.selectLocation) {
+
+            if (row.governorate == this.state.selectLocation ||
+                row.classification == this.state.classification ||
+                (this.state.selectLocation == "All" && this.state.classification == "All")
+
+
+            ) {
                 return this.state.searchTarget.some(
                     (column) => {
-                        return row[column].toString().indexOf(this.state.searchData) > -1
-                    }
-                )
-            } else if (this.state.selectLocation == "All") {
-                return this.state.searchTarget.some(
-                    (column) => {
-                        console.log("------- "+row)
                         return row[column].toString().indexOf(this.state.searchData) > -1
                     }
                 )
             }
 
         }
-        )}
+        )
+    }
     render() {
         let loaction = <div className="select"> <select onChange={e => { this.setState({ selectLocation: e.target.value }) }}
             className="custom-select" aria-label="Filter Locations" value={this.state.selectLocation}>
             <option value="All">جميع المواقع </option>
             {this.state.serachArr.map((item) => { return (<option value={item} key={Math.random() + item}>{item}</option>) })}
+        </select>
+            <span className="focus"></span>
+        </div>
+        let classific = <div className="select"> <select onChange={e => { this.setState({ classification: e.target.value }) }}
+            className="custom-select" aria-label="Filter Locations" value={this.state.classification}>
+            <option value="All">جميع الانواع </option>
+            {this.state.classificationArr.map((item) => { return (<option value={item} key={Math.random() + item}>{item}</option>) })}
         </select>
             <span className="focus"></span>
         </div>
@@ -125,9 +137,10 @@ class Blog extends Component {
         return (
             <div>
                 <section>
-                <div className="search-wrapper">
-                    {loaction}
-                    {serachObj}
+                    <div className="search-wrapper">
+                        {loaction}
+                        {classific}
+                        {serachObj}
                     </div>
                 </section>
                 <section className="Posts">
@@ -144,7 +157,7 @@ class Blog extends Component {
 }
 const mapStateToProps = (state) => {
     return { ...state };
-    
+
 };
 /*const mapDispatchToProps = dispatch => {
     return {

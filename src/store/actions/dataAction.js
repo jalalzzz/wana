@@ -4,6 +4,7 @@ import axios from 'axios';
 
 
 export const getData = () => async dispatch => {
+    console.log("call getData")
 
     try {
         const res = await axios.get(`https://csoproject-a9dbc-default-rtdb.firebaseio.com/association.json`)

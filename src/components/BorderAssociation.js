@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { connect } from 'react-redux';
 import { getData } from '../store/actions/dataAction';
+import firebase from 'firebase';
+import Store from './../store/store';
 
 const icon = <IoArrowBackOutline size={18} />;
 
@@ -30,7 +32,15 @@ class BorderAssociation extends Component {
     const { data } = this.props.data;
     console.log(data);
     this.setState({ items: data,isLoaded: true });
-    console.log("componentDidMount--")
+    console.log("componentDidMount--");
+
+  
+
+    console.log(Store.getState());
+    Store.subscribe(() => {
+      console.log(Store.getState());
+      this.setState({ items: Store.getState().data.data });
+    })
   }
 
 
@@ -66,12 +76,23 @@ class BorderAssociation extends Component {
           <div className="search-wrapper">
             <Link to={'/'}>
               <Btn text={icon} altText="Back" className="btn" />
+           
             </Link>
+      
           </div>
 
           {this.state.items.map(item => {
            
             if (item.association_name == this.props.match.params.name) {
+
+              const updates = {};
+              updates['/association/' + item.id+'/view'] = (+item.view+1);
+           
+            
+               firebase.database().ref().update(updates);
+
+
+         
               console.log(item.association_name+" <<<-------- "+this.props.match.params.name)
               return <AssociationDetail key={"asd"+item.id}
                 urlImage={item.urlImage}
